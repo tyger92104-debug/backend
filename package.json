@@ -1,0 +1,31 @@
+{
+  "name": "urban-air-quality-backend",
+  "version": "1.0.0",
+  "description": "Urban Air Quality Monitoring System – Node.js/Express backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node tests/api.test.js",
+    "test:unit": "node tests/unit.test.js"
+  },
+  "keywords": [
+    "air-quality",
+    "esp32",
+    "mongodb",
+    "express"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.8",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.1",
+    "helmet": "^8.3.0",
+    "mongoose": "^9.11.2"
+  }
+}
