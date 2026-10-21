@@ -96,17 +96,29 @@ app.use((err, req, res, _next) => {
 });
 
 // ─── Start ────────────────────────────────────────────────────────────────────
-async function start() {
-  try {
-    await connectDB();
-    app.listen(PORT, () => {
-      console.log(`[SERVER] Urban Air Quality API running on http://localhost:${PORT}`);
-      console.log(`[SERVER] Health: http://localhost:${PORT}/api/health`);
-    });
-  } catch (err) {
-    console.error('[SERVER] Startup failed:', err.message);
-    process.exit(1);
+
+if (process.env.VERCEL) {
+  // Vercel handles the HTTP server.
+  // Connect to MongoDB without calling app.listen().
+  connectDB().catch((err) => {
+    console.error('[SERVER] MongoDB startup failed:', err.message);
+  });
+} else {
+  // Start a regular server when running locally.
+  async function start() {
+    try {
+      await connectDB();
+      app.listen(PORT, () => {
+        console.log(`[SERVER] Urban Air Quality API running on http://localhost:${PORT}`);
+        console.log(`[SERVER] Health: http://localhost:${PORT}/api/health`);
+      });
+    } catch (err) {
+      console.error('[SERVER] Startup failed:', err.message);
+      process.exit(1);
+    }
   }
+
+  start();
 }
 
-start();
+module.exports = app;
