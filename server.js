@@ -18,9 +18,12 @@ app.use(helmet({
 }));
 
 // CORS – allow the frontend origin (configure via FRONTEND_URL env var)
-const allowedOrigins = (process.env.FRONTEND_URL || '*').split(',').map(s => s.trim());
+const allowedOrigins = (process.env.FRONTEND_URL || '')
+  .split(',')
+  .map(origin => origin.trim());
+
 app.use(cors({
-  origin: allowedOrigins.includes('*') ? '*' : allowedOrigins,
+  origin: allowedOrigins,
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'X-API-Key'],
 }));
